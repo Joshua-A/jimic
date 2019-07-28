@@ -1,0 +1,23 @@
+{
+  "name": "jimic",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Joshua-A/jimic.git"
+  },
+  "author": "Josh Adams",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Joshua-A/jimic/issues"
+  },
+  "homepage": "https://github.com/Joshua-A/jimic#readme",
+  "dependencies": {
+    "@slack/bolt": "^1.2.0",
+    "dotenv": "^8.0.0"
+  }
+}
