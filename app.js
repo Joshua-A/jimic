@@ -18,12 +18,12 @@ const uri = process.env.MONGODB_URI;
 
 MongoClient.connect(uri, {useNewUrlParser: true}, function(err, db) {
   if (err) throw err;
-  /*var dbo = db.db("markov");
+  var dbo = db.db("markov");
   dbo.collection("test").findOne({}, function(err, result) {
     if (err) throw err;
     console.log(result);
     db.close();
-  });*/
+  });
 });
 
 /* Bot Actions */
@@ -40,3 +40,21 @@ app.event('app_mention', async({event, context}) => {
     console.error(error);
   }
 });
+
+function selectNextItem(nextArr) {
+  const lexiconCountTotal = nextArr.reduce((acc, val) => acc += val.count, 0); // Total of occurances of all next possible words
+  let weightingAcc = 0;
+  // Define upper and lower bounds for each item being selected
+  next.forEach(item => {
+    item.minIndex = weightingAcc;
+    item.maxIndex = weightingAcc + item.count - 1;
+    weightingAcc = item.maxIndex + 1;
+  });
+  // Randomly select the next item
+  const selectedIndex = getRandomInt(0,lexiconCountTotal);
+  return nextArr.filter(item => item.minIndex <= selectedIndex && item.maxIndex >= selectedIndex)[0];
+}
+
+function getRandomInt(min,max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
