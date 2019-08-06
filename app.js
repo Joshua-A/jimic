@@ -16,15 +16,12 @@ const app = new App({
 
 const uri = process.env.MONGODB_URI;
 
-MongoClient.connect(uri, {useNewUrlParser: true}, function(err, db) {
-  if (err) throw err;
-  var dbo = db.db("markov");
-  dbo.collection("test").findOne({}, function(err, result) {
-    if (err) throw err;
-    console.log(result);
-    db.close();
-  });
-});
+const client = new MongoClient(uri, { useNewUrlParser: true });
+/*client.connect(err => {
+  const collection = client.db("markov").collection("test");
+  collection.find({}).toArray().then(result => console.log(result));
+  client.close();
+});*/
 
 /* Bot Actions */
 app.message('hello', async({message, say}) => {
